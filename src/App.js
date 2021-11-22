@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import api from "./api"
 import './App.css';
 
 function App() {
+  const [dados, setDados] = useState();
+  useEffect(() => {
+    api.get("ronaldo-vieira").then((response) => {
+      setDados(response.data)
+    })
+  })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Informações do meu perfil do github:</h1>
+      <br />
+      <p>
+        Login: {dados?.login}
+        <br />
+        Id: {dados?.id}
+        <br />
+        Url: {dados?.url}
+        <br />
+        Name: {dados?.name}
+      </p>
     </div>
   );
 }
